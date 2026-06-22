@@ -1,0 +1,27 @@
+Config
+  { font = "JetBrainsMono Nerd Font Mono 13"
+  , additionalFonts = ["JetBrainsMono Nerd Font Propo 12"]
+  , bgColor = "#11111b"
+  , fgColor = "#cdd6f4"
+  , position = Top
+  , sepChar  = "%"
+  , alignSep = "}{"
+  , template = "%XMonadLog% }{ %kbd% | %memory% | %battery% | %date% "
+  , commands =
+      [ Run Battery [ "--template", "󰁹 <acstatus>"
+                    , "--Low"     , "10"
+                    , "--High"    , "80" 
+                    , "--low"     , "darkred"
+                    , "--normal"  , "darkorange"
+                    , "--high"    , "darkgreen"
+                    , "--"
+                    , "-o", "<left>%"
+                    , "-O", "<fc=#dAA520>Charging</fc>"
+                    , "-i", "<fc=#006000>Charged</fc>"
+                    ] 50
+      , Run Memory ["--template", "󰍛 <usedratio>%"] 10
+      , Run Kbd [ ("us", "US"), ("ca", "CA") ]
+      , Run Date "%a %b %_d %Y <fc=#ee9a00>%H:%M:%S</fc>" "date" 10
+      , Run XMonadLog
+      ]
+  }
