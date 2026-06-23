@@ -54,7 +54,16 @@
       enable = true;
     };
   };
+# Enable the Virtual File System backend needed for MTP/microSD detection
+  services.gvfs.enable = true;
 
+# Properly install Thunar with system integration and volume management
+  programs.thunar = {
+    enable = true;
+    plugins = with pkgs.xfce; [
+      thunar-volman
+    ];
+  };
   users.users.eric = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "kvm" "adbusers" ];
@@ -76,6 +85,7 @@
     git
     neovim
     nnn
+    p7zip
     pamixer
     picom
     ripgrep
