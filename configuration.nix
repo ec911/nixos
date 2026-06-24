@@ -86,7 +86,10 @@
     feh
     fzf
     git
+    haskell-language-server
+    lua-language-server
     neovim
+    nil # Nix lsp
     nnn
     p7zip
     pamixer

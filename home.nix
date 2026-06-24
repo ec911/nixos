@@ -14,7 +14,7 @@ in
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.nixos/dotfiles/${name}";
     };
   }) myDotfiles);
-
+  
   home.stateVersion = "26.11";
   programs.home-manager.enable = true;
   services.betterlockscreen.enable = true;

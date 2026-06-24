@@ -8,6 +8,7 @@ local options = {
   termguicolors = true,
   expandtab 	= true,
   smartcase 	= true,
+  wrap = false,
 }
 
 for key, value in pairs(options) do 

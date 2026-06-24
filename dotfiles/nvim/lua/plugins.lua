@@ -1,10 +1,11 @@
 vim.pack.add({
   "https://github.com/nvim-mini/mini.nvim",
   "https://github.com/xiyaowong/transparent.nvim",
+  "https://github.com/neovim/nvim-lspconfig",
 })  
 require('mini_modules.picker')
 require('mini_modules.hipatterns')
 require('mini_modules.mover')
 require('mini_modules.files')
 require('mini_modules.icons')
-
+require('plugins.lsp')
