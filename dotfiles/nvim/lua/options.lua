@@ -1,8 +1,15 @@
 -- Options
-vim.cmd("colorscheme catppuccin") 
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.shiftwidth = 2
-vim.opt.clipboard = "unnamedplus"
-vim.opt.termguicolors = true
+local options = {
+  number 	    = true,
+  relativenumber = true,
+  shiftwidth 	= 2,
+  tabstop   	= 2,
+  clipboard 	= "unnamedplus",
+  termguicolors = true,
+  expandtab 	= true,
+  smartcase 	= true,
+}
 
+for key, value in pairs(options) do 
+  vim.opt[key] = value
+end

@@ -28,13 +28,13 @@
 	      options = "grp:alt_shift_toggle"; 
       };
       displayManager.startx = {
-	enable = true;
-	generateScript = true;
-	extraCommands = ''
-	  picom -b
-	  feh --bg-fill ~/.config/wallpapers/nature.jpg
-	  xsetroot -cursor_name left_ptr
-	'';
+        enable = true;
+        generateScript = true;
+        extraCommands = ''
+          picom -b
+          feh --bg-fill ~/.config/wallpapers/nature.jpg
+          xsetroot -cursor_name left_ptr
+        '';
       };
       windowManager.xmonad = {
         enable = true;
@@ -53,23 +53,26 @@
     tlp = {
       enable = true;
     };
+  # Enable the Virtual File System backend needed for MTP/microSD detection
+    gvfs.enable = true;
   };
-# Enable the Virtual File System backend needed for MTP/microSD detection
-  services.gvfs.enable = true;
 
-# Properly install Thunar with system integration and volume management
-  programs.thunar = {
-    enable = true;
-    plugins = with pkgs.xfce; [
-      thunar-volman
-    ];
-  };
   users.users.eric = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "kvm" "adbusers" ];
   };
+  
+  programs.bash = {
+    enable = true;
+    loginShellInit = ''
+      if [[ -z "$DISPLAY" && "$(tty)" == "/dev/tty1" ]]; then
+        exec startx
+      fi
+    '';
+  };
 
   programs.firefox.enable = true;
+
   programs.zoxide = {
     enable = true;
     enableBashIntegration = true;
@@ -90,6 +93,8 @@
     picom
     ripgrep
     tree
+    thunar
+    thunar-volman
     unzip
     wget
     xclip
