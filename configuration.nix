@@ -1,10 +1,11 @@
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports =
     [
       ./hardware-configuration.nix
+      inputs.helium-flake.nixosModules.default
     ];
 
   boot.loader.systemd-boot.enable = true;
@@ -71,6 +72,34 @@
     '';
   };
 
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
+
+  programs.helium = {
+    enable = true;
+
+    # Optional: override the package
+    # package = pkgs.helium;
+
+    # 🚩 Flags - Command-line arguments always passed to Helium
+    flags = [
+      "--disable-gpu"
+      "--ozone-platform-hint=auto"
+    ];
+
+    # 🎯 Policies - Written to /etc/chromium/policies/managed/helium-nixos.json
+    # Also written to /etc/helium/policies/managed/ for future compatibility
+    policies = {
+      "BrowserSignin" = 0;
+      "PasswordManagerEnabled" = false;
+      "SyncDisabled" = true;
+      "SpellcheckEnabled" = true;
+      "SpellcheckLanguage" = [ "en-US" ];
+    };
+  };
+
   programs.firefox.enable = true;
 
   programs.zoxide = {
@@ -79,14 +108,31 @@
     flags = [ "--cmd cd" ];
   };
 
+  environment.sessionVariables = {
+    PATH = [
+      "$HOME/.config/emacs/bin"
+    ];
+  };
+
   environment.systemPackages = with pkgs; [
     alacritty
+    android-tools
     brightnessctl
+    clang
+    cmake
+    coreutils
+    dart
     dmenu
+    emacs
     feh
+    fd
+    flutter
     fzf
+    gcc
     git
+    gnumake
     haskell-language-server
+    libtool
     lua-language-server
     neovim
     nil # Nix lsp

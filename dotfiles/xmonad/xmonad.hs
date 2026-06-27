@@ -1,5 +1,6 @@
 import XMonad
 import XMonad.Util.EZConfig
+import XMonad.Actions.SpawnOn (spawnOn, manageSpawn)
 import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Layout.Spacing
 import XMonad.Layout.ThreeColumns
@@ -19,7 +20,17 @@ myLayout = tiled ||| Mirror tiled ||| Full ||| threeCol
     delta    = 3/100
 
 myLayoutHook = avoidStruts $ spacingWithEdge 3 $ myLayout
- 
+
+myManageHook :: ManageHook
+myManageHook = composeAll
+  [ className =? "Emacs" --> doShift "2"
+  ]
+
+myStartupHook :: X ()
+myStartupHook = do
+    -- Spawns an instantaneous frame window from the Nix background daemon process
+    spawnOn "2" "emacsclient -c -a ''"
+
 myXmobarPP :: PP
 myXmobarPP = def
   { ppCurrent = xmobarColor "#0db9d7" ""
@@ -42,6 +53,9 @@ myKeys =
   , ("<XF86MonBrightnessDown>", spawn "brightnessctl set 5%-")
   ]
 
+myWorkspaces :: [String]
+myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
 main :: IO ()
 main = xmonad $ ewmhFullscreen $ ewmh $ withEasySB myStatusBar defToggleStrutsKey $ myConfig
 
@@ -52,6 +66,9 @@ myConfig = def
   , normalBorderColor = "#444b6a"
   , focusedBorderColor = "#ad8ee6"
   , layoutHook = myLayoutHook
+  , workspaces = myWorkspaces
+  , manageHook = myManageHook
+  , startupHook = myStartupHook
   }
   `additionalKeysP` myKeys
 
