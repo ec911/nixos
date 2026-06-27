@@ -26,7 +26,7 @@
       autoRepeatInterval = 35;
       xkb = {
 	      layout = "us,ca";
-	      options = "grp:alt_shift_toggle"; 
+	      options = "grp:shifts_toggle";
       };
       displayManager.startx = {
         enable = true;
@@ -42,6 +42,7 @@
         enableContribAndExtras = true;
       };
     };
+    openssh.enable = true;
     printing = {
       enable = true;
       drivers = [ pkgs.brlaser ];
@@ -79,16 +80,11 @@
 
   programs.helium = {
     enable = true;
-
-    # Optional: override the package
-    # package = pkgs.helium;
-
     # 🚩 Flags - Command-line arguments always passed to Helium
     flags = [
       "--disable-gpu"
       "--ozone-platform-hint=auto"
     ];
-
     # 🎯 Policies - Written to /etc/chromium/policies/managed/helium-nixos.json
     # Also written to /etc/helium/policies/managed/ for future compatibility
     policies = {
@@ -99,8 +95,6 @@
       "SpellcheckLanguage" = [ "en-US" ];
     };
   };
-
-  programs.firefox.enable = true;
 
   programs.zoxide = {
     enable = true;
@@ -121,12 +115,10 @@
     clang
     cmake
     coreutils
-    dart
     dmenu
     emacs
     feh
     fd
-    flutter
     fzf
     gcc
     git
@@ -160,8 +152,6 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   
   nixpkgs.config.allowUnfree = true;
-
-  services.openssh.enable = true;
 
   system.stateVersion = "25.11"; # Did you read the comment?
 

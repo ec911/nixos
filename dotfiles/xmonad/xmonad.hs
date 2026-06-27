@@ -42,7 +42,8 @@ myStatusBar = statusBarProp "xmobar" (pure myXmobarPP)
 
 myKeys = 
   [ ("M-<Return>", spawn "alacritty")
-  , ("M-f", spawn "firefox")
+  , ("M-e", spawn "emacsclient -c -a ''")
+  , ("M-f", spawn "helium")
   , ("M-d", spawn "dmenu_run")
   , ("M-S-r", spawn "xmonad --recompile" >> spawn "xmonad --restart")
   , ("M-q", kill)
