@@ -95,34 +95,24 @@
       "SpellcheckLanguage" = [ "en-US" ];
     };
   };
-
   programs.zoxide = {
     enable = true;
     enableBashIntegration = true;
     flags = [ "--cmd cd" ];
   };
 
-  environment.sessionVariables = {
-    PATH = [
-      "$HOME/.config/emacs/bin"
-    ];
-  };
-
   environment.systemPackages = with pkgs; [
     alacritty
-    android-tools
     brightnessctl
     clang
     cmake
     coreutils
     dmenu
-    emacs
     feh
     fd
     fzf
     gcc
     git
-    gnumake
     haskell-language-server
     libtool
     lua-language-server
@@ -132,6 +122,7 @@
     p7zip
     pamixer
     picom
+    qutebrowser
     ripgrep
     tree
     thunar
@@ -145,6 +136,7 @@
   
   fonts.packages = with pkgs;[
     nerd-fonts.jetbrains-mono
+    nerd-fonts.symbols-only
   ];
 
   security.pam.services.i3lock.enable = true;
