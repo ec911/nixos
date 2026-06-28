@@ -21,16 +21,6 @@ myLayout = tiled ||| Mirror tiled ||| Full ||| threeCol
 
 myLayoutHook = avoidStruts $ spacingWithEdge 3 $ myLayout
 
-myManageHook :: ManageHook
-myManageHook = composeAll
-  [ className =? "Emacs" --> doShift "2"
-  ]
-
-myStartupHook :: X ()
-myStartupHook = do
-    -- Spawns an instantaneous frame window from the Nix background daemon process
-    spawnOn "2" "emacsclient -c -a ''"
-
 myXmobarPP :: PP
 myXmobarPP = def
   { ppCurrent = xmobarColor "#0db9d7" ""
@@ -42,7 +32,6 @@ myStatusBar = statusBarProp "xmobar" (pure myXmobarPP)
 
 myKeys = 
   [ ("M-<Return>", spawn "alacritty")
-  , ("M-e", spawn "emacsclient -c -a ''")
   , ("M-f", spawn "helium")
   , ("M-d", spawn "dmenu_run")
   , ("M-S-r", spawn "xmonad --recompile" >> spawn "xmonad --restart")
@@ -68,8 +57,6 @@ myConfig = def
   , focusedBorderColor = "#ad8ee6"
   , layoutHook = myLayoutHook
   , workspaces = myWorkspaces
-  , manageHook = myManageHook
-  , startupHook = myStartupHook
   }
   `additionalKeysP` myKeys
 
